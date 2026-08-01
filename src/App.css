@@ -1,0 +1,1097 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Satisfy&display=swap');
+
+/* ================================================================
+   PREMIUM WHITE + RED PALETTE
+   Full white canvas throughout the site. Cormorant Garamond stays
+   as the editorial serif for section titles / body headings, but
+   the hero headline and the bio "Hey!" now use Satisfy — a genuine
+   handwritten script — in a deep premium red, with a "written by
+   hand" reveal animation on the bio heading.
+   ================================================================ */
+:root {
+  /* -- background — flat, true white everywhere -- */
+  --frost-1: #FFFFFF;
+  --frost-2: #FFFFFF;
+  --frost-3: #FFFFFF;
+  --frost-4: #FFFFFF;
+
+  /* -- ink / text -- */
+  --ink: #202C3C;
+  --ink-soft: #3C4E63;
+  --muted-on-light: rgba(32, 44, 60, 0.58);
+  --muted-on-dark: rgba(238, 244, 251, 0.72);
+
+  --cream: #FDFEFF;
+  --ivory: #FFFFFF;
+
+  /* -- premium red accent (replaces the old champagne/gold) -- */
+  --champagne: #B3132E;        /* core premium red */
+  --champagne-light: #E0717C;  /* soft rose-red, for use on dark surfaces */
+  --champagne-deep: #7A0F22;   /* oxblood, for hover / deep emphasis */
+
+  /* -- glass surfaces — kept subtle since canvas is now pure white -- */
+  --glass-light-bg: rgba(255, 255, 255, 0.6);
+  --glass-light-bg-soft: rgba(255, 255, 255, 0.35);
+  --glass-light-border: rgba(32, 44, 60, 0.08);
+  --glass-dark-bg: rgba(32, 44, 60, 0.46);
+  --glass-dark-bg-strong: rgba(32, 44, 60, 0.68);
+  --glass-dark-border: rgba(255, 255, 255, 0.18);
+
+  --line-on-dark: rgba(255, 255, 255, 0.16);
+  --line-on-light: rgba(32, 44, 60, 0.10);
+
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-script: 'Satisfy', 'Brush Script MT', cursive;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+[id] { scroll-margin-top: 110px; }
+
+body {
+  margin: 0;
+  background: #FFFFFF;
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+.page { overflow-x: clip; background: #FFFFFF; }
+
+/* ================================================================
+   NAV — premium, elegant redesign
+   A slim glass bar (not a tight pill) with a hairline red-tinted
+   border, a serif wordmark with a small drawn rule beside it,
+   letter-spaced links that get a center-out underline on hover,
+   and an outlined "signature" CTA that fills red on hover instead
+   of the old flat ink button.
+   ================================================================ */
+.nav-wrap {
+  position: fixed;
+  top: 22px; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 0 5vw;
+  pointer-events: none;
+}
+.nav {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  padding: 14px 10px 14px 26px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(179, 19, 46, 0.14);
+  box-shadow: 0 12px 40px rgba(32, 44, 60, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  color: var(--ink);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.nav:hover {
+  border-color: rgba(179, 19, 46, 0.26);
+  box-shadow: 0 16px 46px rgba(32, 44, 60, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--champagne);
+  box-shadow: 0 0 0 3px rgba(179, 19, 46, 0.14);
+}
+.nav-logo-dim { color: var(--champagne); font-weight: 500; }
+.nav-links {
+  display: flex;
+  gap: 30px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+  color: var(--ink-soft);
+  opacity: 0.82;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--champagne);
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-links a:hover { opacity: 1; color: var(--champagne-deep); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: transparent;
+  color: var(--champagne-deep);
+  border: 1px solid var(--champagne);
+  padding: 10px 22px;
+  border-radius: 999px;
+  transition: color 0.35s ease, box-shadow 0.35s ease;
+  z-index: 0;
+}
+.nav-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--champagne);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+.nav-cta:hover {
+  color: var(--cream);
+  box-shadow: 0 10px 24px rgba(179, 19, 46, 0.28);
+}
+.nav-cta:hover::before { transform: scaleX(1); }
+.nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-burger span { width: 20px; height: 2px; background: var(--ink); display: block; border-radius: 2px; transition: background 0.2s ease; }
+.nav-burger:hover span { background: var(--champagne); }
+
+/* ---------- MARQUEE (light band, red accent) ---------- */
+.marquee {
+  background: #FFFFFF;
+  color: var(--ink);
+  overflow: hidden;
+  padding: 20px 0;
+  border-top: 1px solid var(--line-on-light);
+  border-bottom: 1px solid var(--line-on-light);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-rtl 26s linear infinite;
+}
+@keyframes scroll-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  padding: 0 28px;
+  white-space: nowrap;
+  color: var(--ink-soft);
+  opacity: 0.9;
+}
+.marquee-dot { color: var(--champagne); font-size: 10px; margin-left: 28px; }
+
+/* ---------- SECTIONS SHARED ---------- */
+section { padding: 110px 6vw; background: #FFFFFF; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--champagne-deep);
+  letter-spacing: 0.1em;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 46px);
+  margin: 0;
+  color: var(--ink);
+}
+
+/* ---------- ABOUT (shared text styles) ---------- */
+.about-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--muted-on-light);
+}
+.stat-list { display: flex; gap: 28px; margin-top: 2rem; }
+.stat { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--line-on-light); padding-top: 14px; }
+.stat-num { font-family: var(--font-display); font-size: 40px; color: var(--champagne); }
+.stat-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; color: var(--muted-on-light); }
+
+/* ---------- TIMELINE ---------- */
+.timeline { position: relative; border-top: 1px solid var(--line-on-light); }
+.timeline-spine {
+  position: absolute;
+  left: 149px;
+  top: 0;
+  width: 2px;
+  height: 0%;
+  background: linear-gradient(to bottom, var(--champagne), var(--champagne-light));
+  transition: height 1.4s cubic-bezier(0.16,1,0.3,1);
+}
+.timeline-started .timeline-spine { height: 100%; }
+@media (max-width: 900px) { .timeline-spine { left: 106px; } }
+.timeline-row {
+  display: grid;
+  grid-template-columns: 140px 20px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line-on-light);
+  transition: padding-left 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.timeline-row:hover { padding-left: 12px; }
+.timeline-period { font-family: var(--font-mono); font-size: 13px; color: var(--muted-on-light); }
+.timeline-dot {
+  width: 9px; height: 9px; border-radius: 50%; background: var(--champagne); justify-self: center;
+  box-shadow: 0 0 0 0 rgba(179, 19, 46, 0.35);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.timeline-row:hover .timeline-dot { box-shadow: 0 0 0 6px rgba(179, 19, 46, 0.18); transform: scale(1.2); }
+.timeline-body h3 { font-family: var(--font-display); font-size: 23px; margin: 0 0 4px; font-weight: 600; color: var(--ink); }
+.timeline-body p { margin: 0; color: var(--muted-on-light); font-size: 15px; }
+
+/* ---------- EXPERIENCE (light frosted-glass card) ---------- */
+.exp-card {
+  background: var(--glass-light-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-light-border);
+  box-shadow: 0 20px 60px rgba(32, 44, 60, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  color: var(--ink);
+  border-radius: 24px;
+  padding: 44px;
+}
+.exp-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.exp-top h3 { font-family: var(--font-display); font-size: 32px; margin: 0; font-weight: 600; color: var(--ink); }
+.exp-period { font-family: var(--font-mono); font-size: 13px; color: var(--champagne-deep); }
+.exp-card p { color: var(--muted-on-light); line-height: 1.7; font-size: 16px; max-width: 68ch; }
+.exp-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.exp-tags span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  background: rgba(179, 19, 46, 0.05);
+  border: 1px solid var(--line-on-light);
+  border-radius: 999px;
+  padding: 7px 14px;
+  color: var(--ink-soft);
+}
+
+/* ================================================================
+   PROJECTS — sticky stack mechanic UNCHANGED (position: sticky,
+   top offset, min-height driving the scroll, z-index stacking).
+   Only the box design changes: each panel is now a smaller,
+   fully-rounded floating CARD with visible white gutters around it
+   instead of an edge-to-edge full-bleed panel.
+   ================================================================ */
+
+.projects { padding: 0 0 6vh; background: #FFFFFF; }
+.projects .section-head { padding: 90px 6vw 0; margin-bottom: 40px; }
+
+.stack {
+  position: relative;
+  padding-bottom: 4vh;
+}
+
+.stack-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  position: sticky;
+  top: 5vh;                                  /* leaves a white reveal gap above each card */
+  min-height: 82vh;                          /* was 76vh — a little larger */
+  width: min(1120px, 92vw);                  /* was min(1040px, 90vw) — a little wider */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 5.5vw;
+  box-shadow: 0 30px 80px -14px rgba(32, 44, 60, 0.20), 0 0 0 1px rgba(32, 44, 60, 0.04);
+  border-radius: 32px;                       /* rounded on all corners, not just the top */
+}
+
+.stack-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(26px) saturate(160%);
+  -webkit-backdrop-filter: blur(26px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 32px;
+}
+
+.stack-inner { position: relative; z-index: 1; max-width: 580px; }
+
+.stack-index {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+  margin-bottom: 16px;
+}
+
+.stack-card .project-tag {
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.stack-card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 4.8vw, 56px);       /* was clamp(28px, 4.4vw, 52px) */
+  margin: 0 0 16px;
+  line-height: 1.05;
+}
+
+.stack-card p {
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 54ch;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.stack-tags { margin-top: 24px; }
+
+.fg-dark { color: var(--ink); }
+.fg-dark .project-tag { color: var(--champagne-deep); }
+.fg-dark .exp-tags span { border-color: var(--line-on-light); }
+
+.fg-light { color: var(--cream); }
+.fg-light .project-tag { color: var(--champagne-light); }
+.fg-light .exp-tags span { border-color: var(--glass-dark-border); }
+
+/* ---------- SKILLS (text-focused premium motion) ---------- */
+.skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+
+.skill-group {
+  position: relative;
+  padding: 4px 0 4px 2px;
+  --group-offset: 0s;
+}
+.skill-group:nth-child(2) { --group-offset: 0.15s; }
+.skill-group:nth-child(3) { --group-offset: 0.3s; }
+.skill-group:nth-child(4) { --group-offset: 0.45s; }
+
+.skill-group h4 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--champagne-deep);
+  margin: 0 0 18px;
+}
+/* A tiny diamond mark that spins slowly beside each heading — a
+   quiet signature detail rather than a decoration that shouts. */
+.skill-group h4::before {
+  content: '◆';
+  font-size: 7px;
+  line-height: 1;
+  color: var(--champagne-light);
+  display: inline-block;
+  animation: diamond-spin 7s linear infinite;
+}
+@keyframes diamond-spin {
+  to { transform: rotate(360deg); }
+}
+
+.skill-group li {
+  position: relative;
+  padding: 10px 0 10px 20px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-on-light);
+  transition: padding-left 0.25s ease;
+  --item-offset: 0s;
+}
+.skill-group li:nth-child(2) { --item-offset: 0.35s; }
+.skill-group li:nth-child(3) { --item-offset: 0.7s; }
+.skill-group li:nth-child(4) { --item-offset: 1.05s; }
+
+/* The text itself carries the motion: a soft band of red light
+   drifts continuously through each word, left to right, like ink
+   still catching the light — rather than any border or frame.
+   Gated behind @supports so browsers without text-clip masking
+   simply keep the solid ink color instead of losing the text. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .skill-group li {
+    background-image: linear-gradient(
+      100deg,
+      var(--ink) 30%,
+      var(--champagne) 46%,
+      var(--champagne-light) 50%,
+      var(--champagne) 54%,
+      var(--ink) 70%
+    );
+    background-size: 260% 100%;
+    background-position: 120% 0%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: text-shimmer 6s linear infinite;
+  }
+}
+
+.skill-group li:hover { padding-left: 8px; }
+
+@keyframes text-shimmer {
+  from { background-position: 120% 0%; }
+  to   { background-position: -140% 0%; }
+}
+
+/* ---------- CERTIFICATES (continuous, quiet premium loop) ---------- */
+.certs {
+  margin-top: 56px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted-on-light);
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.certs span:not(.certs-sep) {
+  position: relative;
+  padding-bottom: 6px;
+}
+/* Each cert label draws its own underline in, holds, then retracts
+   from the opposite edge — a slow signature-like loop that never
+   fully stops, echoing the hand-drawn flourish used in the hero. */
+.certs span:not(.certs-sep)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--champagne-light), var(--champagne));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: cert-underline 6s ease-in-out infinite;
+}
+.certs span:nth-of-type(1)::after { animation-delay: 0s; }
+.certs span:nth-of-type(3)::after { animation-delay: 1.4s; }
+
+@keyframes cert-underline {
+  0%   { transform: scaleX(0); transform-origin: left; }
+  20%  { transform: scaleX(1); transform-origin: left; }
+  55%  { transform: scaleX(1); transform-origin: left; }
+  75%  { transform: scaleX(0); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+
+/* The separating "/" softly pulses forever, like a slow heartbeat
+   marking the rhythm between the two credentials. */
+.certs-sep {
+  color: var(--champagne);
+  display: inline-block;
+  animation: sep-pulse 2.6s ease-in-out infinite;
+}
+@keyframes sep-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.3); }
+}
+
+/* ---------- CONTACT (light, matches the white canvas) ---------- */
+.contact {
+  background: #FFFFFF;
+  border-top: 1px solid var(--line-on-light);
+  color: var(--ink);
+  border-radius: 40px 40px 0 0;
+  padding: 130px 6vw 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(34px, 6vw, 70px);
+  line-height: 1.08;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+.contact-sub { color: var(--muted-on-light); margin: 0 0 40px; font-size: 16px; }
+.contact-email {
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 2.4vw, 22px);
+  border-bottom: 1px solid var(--champagne-light);
+  padding-bottom: 6px;
+  margin-bottom: 40px;
+  color: var(--champagne-deep);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.contact-email:hover { color: var(--champagne); border-color: var(--champagne); }
+.contact-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 70px;
+}
+.contact-links a:hover { color: var(--champagne-deep); }
+.contact-foot {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-on-light);
+  border-top: 1px solid var(--line-on-light);
+  padding-top: 24px;
+  width: 100%;
+}
+
+/* ---------- SCROLL REVEALS ---------- */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  will-change: transform, opacity;
+}
+.reveal-up { transform: translateY(36px); }
+.reveal-left { transform: translateX(-52px); }
+.reveal-right { transform: translateX(52px); }
+.reveal-in {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline-row { grid-template-columns: 100px 14px 1fr; }
+  .stack-card { width: 94vw; min-height: 76vh; padding: 0 7vw; top: 3vh; }
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 12px 30px rgba(32, 44, 60, 0.14);
+  }
+  .nav-links.open { display: flex; }
+  .nav-burger { display: flex; }
+  .nav-cta { display: none; }
+  section { padding: 80px 6vw; }
+  .skills-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .exp-card { padding: 28px; }
+  .stack-card { min-height: 66vh; border-radius: 24px; }
+  .stack-card::before { border-radius: 24px; }
+  .stack-card h3 { font-size: clamp(24px, 8vw, 38px); }
+  .stack-card p { font-size: 15px; max-width: 44ch; }
+}
+
+@media (max-width: 400px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* ================================================================
+   HERO + BIO STICKY FLIP-CARD LAYOUT
+   Canvas is flat white (driven by --frost-* vars above). Hero
+   headline and the bio "Hey!" now use Satisfy in a premium red,
+   sized down from the original oversized display serif.
+   ================================================================ */
+
+.majd-hero-bio-container {
+  position: relative;
+  overflow: hidden;         /* clips the sticky viewport's 130vh box + its
+                                decorative blobs so nothing bleeds past this
+                                110vh container into the marquee below */
+  height: 110vh;
+  background: #FFFFFF;
+  --avatar-col: min(260px, 60vw);
+  /* Card shrinks to ~0.72 scale in bio (see FLIP_END in JS) → ~187px. */
+  --bio-spacer: min(300px, 30vw);
+}
+
+.majd-sticky-viewport {
+  position: sticky;
+  top: 0;
+  height: 130vh;
+  width: 100%;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.majd-sticky-viewport::before,
+.majd-sticky-viewport::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.majd-sticky-viewport::before {
+  width: 460px;
+  height: 460px;
+  top: -160px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent 70%);
+  filter: blur(60px);
+}
+.majd-sticky-viewport::after {
+  width: 560px;
+  height: 560px;
+  bottom: -200px;
+  right: -180px;
+  background: radial-gradient(circle, rgba(179, 19, 46, 0.09), transparent 70%);
+  filter: blur(70px);
+}
+
+/* Centered sticky avatar card. */
+.majd-avatar-sticky-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: var(--avatar-col);
+  aspect-ratio: 0.877;
+  perspective: 1200px;
+}
+
+.majd-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 30px 70px -15px rgba(32, 44, 60, 0.28);
+  border: 1px solid var(--glass-light-border);
+  -webkit-transform: translateZ(0);
+}
+
+.majd-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.majd-card-back-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.majd-card-back {
+  background: var(--glass-dark-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.majd-card-back-design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.majd-logo-icon {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--champagne-light);
+}
+
+.majd-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--champagne-light);
+  margin: 0;
+}
+
+.majd-subtag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* Scroll Flow Container — sections scroll through normally, no fading */
+.majd-content-scroll-flow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200vh;
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Page 1: Hero Page */
+.majd-hero-page {
+  height: 80vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+.majd-hero-title-container {
+  position: relative;
+  text-align: center;
+  margin-top: -10px;
+}
+
+/* Hero headline — Satisfy script, premium red, sized down considerably
+   from the original oversized display serif. Uppercase is dropped
+   because a handwritten script reads poorly in all-caps. A smooth
+   "written by hand" reveal combines a clip-path sweep with a gentle
+   rise + fade, so the line eases in rather than snapping into place. */
+.majd-hero-title {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(30px, 5.4vw, 76px);
+  line-height: 1.18;
+  letter-spacing: 0;
+  color: var(--champagne);
+  margin: 0;
+  text-transform: none;
+  text-align: center;
+  text-shadow: 0 2px 24px rgba(179, 19, 46, 0.10);
+  display: inline-block;
+  clip-path: inset(0 100% 0 -4%);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hero-write-reveal 2.2s cubic-bezier(0.65, 0.05, 0.25, 1) 0.15s forwards;
+}
+
+@keyframes hero-write-reveal {
+  0%   { clip-path: inset(0 100% 0 -4%); opacity: 0; transform: translateY(10px); }
+  8%   { opacity: 1; }
+  100% { clip-path: inset(0 0 0 -4%); opacity: 1; transform: translateY(0); }
+}
+
+/* A thin flourish rule draws in under the headline right after the
+   text finishes writing itself — the "underline the signature" beat. */
+.majd-hero-title-container::after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 0;
+  margin: 18px auto 0;
+  background: linear-gradient(90deg, transparent, var(--champagne), transparent);
+  animation: flourish-draw 0.9s ease-out 2.15s forwards;
+}
+
+@keyframes flourish-draw {
+  to { width: min(300px, 58vw); }
+}
+
+/* Mobile-only static hero image (rendered under the two-line
+   heading, in normal document flow — no pinning, no overlap). */
+.majd-mobile-hero-img {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .majd-mobile-hero-img {
+    display: block;
+    width: min(220px, 55vw);
+    aspect-ratio: 0.877;
+    object-fit: cover;
+    border-radius: 24px;
+    margin: 20px auto 0;
+    box-shadow: 0 30px 70px -15px rgba(32, 44, 60, 0.28);
+    border: 1px solid var(--glass-light-border);
+  }
+}
+
+.majd-hero-footer-bar {
+  position: absolute;
+  bottom: 40px;
+  left: 6vw;
+  right: 6vw;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+/* Glassmorphism floating shapes (static, decorative) */
+.majd-holo-shape {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(179, 19, 46, 0.14));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(32, 44, 60, 0.08);
+}
+
+.holo-left {
+  top: 20vh;
+  left: 12vw;
+  transform: rotate(-15deg);
+}
+
+.holo-right {
+  bottom: 20vh;
+  right: 12vw;
+  transform: rotate(25deg);
+}
+
+/* Page 2: Bio Page Layout
+   Center track now uses --bio-spacer (decoupled from the hero card's
+   own size) so it always matches how big the card actually looks
+   once it has scaled down. */
+.majd-bio-page {
+  height: 190vh;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr var(--bio-spacer) 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0 6vw;
+}
+
+.majd-bio-left {
+  grid-column: 1;
+  max-width: 420px;
+}
+
+.majd-bio-center-spacer {
+  grid-column: 2;
+}
+
+.majd-bio-right {
+  grid-column: 3;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.majd-bio-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--champagne-deep);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* "Hey!" — Satisfy script in premium red, with a left-to-right
+   "written by hand" reveal animation on load. */
+.majd-bio-heading {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(46px, 5.6vw, 76px);
+  margin: 0 0 1rem;
+  line-height: 1;
+  color: var(--champagne);
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: write-reveal 1.6s cubic-bezier(0.65, 0.05, 0.36, 1) 0.2s forwards;
+}
+
+@keyframes write-reveal {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+.majd-bio-lead {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+  max-width: 34ch;
+}
+
+.majd-bio-text {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--muted-on-light);
+  margin: 0;
+  max-width: 40ch;
+}
+
+.majd-bio-cta {
+  margin-top: 2.25rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid var(--champagne-light);
+  padding-bottom: 4px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.majd-bio-cta:hover { color: var(--champagne-deep); border-color: var(--champagne); }
+
+.majd-bio-bottom-text .stat { border-top-color: var(--line-on-light); }
+.majd-bio-bottom-text .stat-label { color: var(--muted-on-light); }
+
+.majd-bio-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr var(--bio-spacer) 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  grid-column: 1 / -1;
+}
+
+.majd-bio-top-text {
+  grid-column: 1;
+}
+
+.majd-bio-bottom-text {
+  grid-column: 3;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  /* Give the container enough height to scroll through both sections */
+  .majd-hero-bio-container {
+    height: 150vh;
+  }
+
+  .majd-content-scroll-flow {
+    height: 320vh; /* Prevents the bottom text from being cut off */
+  }
+
+  .majd-hero-page,
+  .majd-bio-page {
+    height: auto !important;
+    min-height: 100vh;
+    padding: 100px 7vw !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .majd-hero-title {
+    font-size: clamp(30px, 9vw, 52px);
+    line-height: 1.22;
+  }
+
+  .majd-bio-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px; /* Spacing between text blocks and image */
+    width: 100%;
+  }
+
+  .majd-bio-top-text,
+  .majd-bio-bottom-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .majd-bio-heading {
+    font-size: clamp(42px, 14vw, 58px);
+    margin: 10px 0 16px;
+  }
+
+  .majd-bio-lead, .majd-bio-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 34ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .majd-bio-cta { margin-top: 1.75rem; }
+
+  /* Fixed Image Wrapper */
+  .majd-mobile-image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    min-height: 240px; /* Reserves space so text doesn't jump */
+  }
+
+  .majd-mobile-bio-img {
+    width: min(240px, 70vw);
+    aspect-ratio: 0.877;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(32, 44, 60, 0.18);
+    display: block; /* Ensures it renders as a box */
+    background: var(--glass-dark-bg); /* Fallback color */
+  }
+
+  .stat-list {
+    margin-top: 20px;
+    padding-top: 25px;
+    border-top: 1px solid var(--line-on-light);
+    width: 100%;
+    justify-content: center;
+    gap: 40px;
+  }
+}
