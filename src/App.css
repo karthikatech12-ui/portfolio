@@ -70,11 +70,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 /* ================================================================
    NAV — premium, elegant redesign
-   A slim glass bar (not a tight pill) with a hairline red-tinted
-   border, a serif wordmark with a small drawn rule beside it,
-   letter-spaced links that get a center-out underline on hover,
-   and an outlined "signature" CTA that fills red on hover instead
-   of the old flat ink button.
    ================================================================ */
 .nav-wrap {
   position: fixed;
@@ -310,11 +305,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 }
 
 /* ================================================================
-   PROJECTS — sticky stack mechanic UNCHANGED (position: sticky,
-   top offset, min-height driving the scroll, z-index stacking).
-   Only the box design changes: each panel is now a smaller,
-   fully-rounded floating CARD with visible white gutters around it
-   instead of an edge-to-edge full-bleed panel.
+   PROJECTS — sticky stack mechanic UNCHANGED
    ================================================================ */
 
 .projects { padding: 0 0 6vh; background: #FFFFFF; }
@@ -330,15 +321,15 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   isolation: isolate;
   overflow: hidden;
   position: sticky;
-  top: 5vh;                                  /* leaves a white reveal gap above each card */
-  min-height: 82vh;                          /* was 76vh — a little larger */
-  width: min(1120px, 92vw);                  /* was min(1040px, 90vw) — a little wider */
+  top: 5vh;
+  min-height: 82vh;
+  width: min(1120px, 92vw);
   margin: 0 auto;
   display: flex;
   align-items: center;
   padding: 0 5.5vw;
   box-shadow: 0 30px 80px -14px rgba(32, 44, 60, 0.20), 0 0 0 1px rgba(32, 44, 60, 0.04);
-  border-radius: 32px;                       /* rounded on all corners, not just the top */
+  border-radius: 32px;
 }
 
 .stack-card::before {
@@ -373,7 +364,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 .stack-card h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(30px, 4.8vw, 56px);       /* was clamp(28px, 4.4vw, 52px) */
+  font-size: clamp(30px, 4.8vw, 56px);
   margin: 0 0 16px;
   line-height: 1.05;
 }
@@ -420,8 +411,6 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   color: var(--champagne-deep);
   margin: 0 0 18px;
 }
-/* A tiny diamond mark that spins slowly beside each heading — a
-   quiet signature detail rather than a decoration that shouts. */
 .skill-group h4::before {
   content: '◆';
   font-size: 7px;
@@ -449,11 +438,6 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 .skill-group li:nth-child(3) { --item-offset: 0.7s; }
 .skill-group li:nth-child(4) { --item-offset: 1.05s; }
 
-/* The text itself carries the motion: a soft band of red light
-   drifts continuously through each word, left to right, like ink
-   still catching the light — rather than any border or frame.
-   Gated behind @supports so browsers without text-clip masking
-   simply keep the solid ink color instead of losing the text. */
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   .skill-group li {
     background-image: linear-gradient(
@@ -480,7 +464,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   to   { background-position: -140% 0%; }
 }
 
-/* ---------- CERTIFICATES (continuous, quiet premium loop) ---------- */
+/* ---------- CERTIFICATES ---------- */
 .certs {
   margin-top: 56px;
   font-family: var(--font-mono);
@@ -494,9 +478,6 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   position: relative;
   padding-bottom: 6px;
 }
-/* Each cert label draws its own underline in, holds, then retracts
-   from the opposite edge — a slow signature-like loop that never
-   fully stops, echoing the hand-drawn flourish used in the hero. */
 .certs span:not(.certs-sep)::after {
   content: '';
   position: absolute;
@@ -520,8 +501,6 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   100% { transform: scaleX(0); transform-origin: right; }
 }
 
-/* The separating "/" softly pulses forever, like a slow heartbeat
-   marking the rhythm between the two credentials. */
 .certs-sep {
   color: var(--champagne);
   display: inline-block;
@@ -532,7 +511,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   50%      { opacity: 1;   transform: scale(1.3); }
 }
 
-/* ---------- CONTACT (light, matches the white canvas) ---------- */
+/* ---------- CONTACT ---------- */
 .contact {
   background: #FFFFFF;
   border-top: 1px solid var(--line-on-light);
@@ -638,20 +617,14 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 
 /* ================================================================
    HERO + BIO STICKY FLIP-CARD LAYOUT
-   Canvas is flat white (driven by --frost-* vars above). Hero
-   headline and the bio "Hey!" now use Satisfy in a premium red,
-   sized down from the original oversized display serif.
    ================================================================ */
 
 .majd-hero-bio-container {
   position: relative;
-  overflow: hidden;         /* clips the sticky viewport's 130vh box + its
-                                decorative blobs so nothing bleeds past this
-                                110vh container into the marquee below */
+  overflow: hidden;
   height: 110vh;
   background: #FFFFFF;
-  --avatar-col: min(260px, 60vw);
-  /* Card shrinks to ~0.72 scale in bio (see FLIP_END in JS) → ~187px. */
+  --avatar-col: min(230px, 55vw);   /* was min(260px, 60vw) — slightly smaller so it fits under the heading with room to spare */
   --bio-spacer: min(300px, 30vw);
 }
 
@@ -689,10 +662,13 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   filter: blur(70px);
 }
 
-/* Centered sticky avatar card. */
+/* Centered sticky avatar card — nudged down from dead-center so it
+   sits comfortably under the two-line hero heading instead of
+   overlapping it (desktop only; this block never renders on mobile
+   since the React component skips it there). */
 .majd-avatar-sticky-wrap {
   position: absolute;
-  top: 50%;
+  top: 58%;                 /* was 50% — moved down to clear the heading */
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -767,7 +743,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   margin: 0;
 }
 
-/* Scroll Flow Container — sections scroll through normally, no fading */
+/* Scroll Flow Container */
 .majd-content-scroll-flow {
   position: absolute;
   top: 0;
@@ -796,11 +772,15 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   margin-top: -10px;
 }
 
-/* Hero headline — Satisfy script, premium red, sized down considerably
-   from the original oversized display serif. Uppercase is dropped
-   because a handwritten script reads poorly in all-caps. A smooth
-   "written by hand" reveal combines a clip-path sweep with a gentle
-   rise + fade, so the line eases in rather than snapping into place. */
+/* Desktop only: lift the heading up so there's a clear gap between
+   it and the sticky avatar card below it (paired with the
+   .majd-avatar-sticky-wrap top:58% change above). */
+@media (min-width: 769px) {
+  .majd-hero-title-container {
+    margin-top: -150px;
+  }
+}
+
 .majd-hero-title {
   font-family: var(--font-script);
   font-weight: 400;
@@ -825,8 +805,6 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   100% { clip-path: inset(0 0 0 -4%); opacity: 1; transform: translateY(0); }
 }
 
-/* A thin flourish rule draws in under the headline right after the
-   text finishes writing itself — the "underline the signature" beat. */
 .majd-hero-title-container::after {
   content: '';
   display: block;
@@ -841,8 +819,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   to { width: min(300px, 58vw); }
 }
 
-/* Mobile-only static hero image (rendered under the two-line
-   heading, in normal document flow — no pinning, no overlap). */
+/* Mobile-only static hero image */
 .majd-mobile-hero-img {
   display: none;
 }
@@ -900,10 +877,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   transform: rotate(25deg);
 }
 
-/* Page 2: Bio Page Layout
-   Center track now uses --bio-spacer (decoupled from the hero card's
-   own size) so it always matches how big the card actually looks
-   once it has scaled down. */
+/* Page 2: Bio Page Layout */
 .majd-bio-page {
   height: 190vh;
   width: 100%;
@@ -943,8 +917,6 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   margin-bottom: 14px;
 }
 
-/* "Hey!" — Satisfy script in premium red, with a left-to-right
-   "written by hand" reveal animation on load. */
 .majd-bio-heading {
   font-family: var(--font-script);
   font-weight: 400;
@@ -1011,13 +983,12 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 }
 
 @media (max-width: 768px) {
-  /* Give the container enough height to scroll through both sections */
   .majd-hero-bio-container {
     height: 150vh;
   }
 
   .majd-content-scroll-flow {
-    height: 320vh; /* Prevents the bottom text from being cut off */
+    height: 320vh;
   }
 
   .majd-hero-page,
@@ -1040,7 +1011,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 35px; /* Spacing between text blocks and image */
+    gap: 35px;
     width: 100%;
   }
 
@@ -1067,13 +1038,12 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 
   .majd-bio-cta { margin-top: 1.75rem; }
 
-  /* Fixed Image Wrapper */
   .majd-mobile-image-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     margin: 20px 0;
-    min-height: 240px; /* Reserves space so text doesn't jump */
+    min-height: 240px;
   }
 
   .majd-mobile-bio-img {
@@ -1082,8 +1052,8 @@ section { padding: 110px 6vw; background: #FFFFFF; }
     object-fit: cover;
     border-radius: 24px;
     box-shadow: 0 20px 60px rgba(32, 44, 60, 0.18);
-    display: block; /* Ensures it renders as a box */
-    background: var(--glass-dark-bg); /* Fallback color */
+    display: block;
+    background: var(--glass-dark-bg);
   }
 
   .stat-list {
