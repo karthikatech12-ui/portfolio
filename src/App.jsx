@@ -213,9 +213,14 @@ export function HeroBioSection() {
     offset: ['start start', 'end end'],
   });
 
-  // Desktop Card Transforms (Keep as is)
-  const rawTranslateY = useTransform(scrollYProgress, [0.3, 0.56], [0, 64]);
-  const rawScale = useTransform(scrollYProgress, [0.3, 0.56], [1, 0.72]);
+  // Desktop Card Transforms
+  // NOTE: translateY now moves the card slightly UP (negative) instead of
+  // further down as we scroll into the bio section, and the final scale is
+  // larger (0.82 instead of 0.72) — together these keep the card a
+  // comfortable size and vertically centered next to the bio text instead
+  // of ending up small and low.
+  const rawTranslateY = useTransform(scrollYProgress, [0.3, 0.56], [0, -30]);
+  const rawScale = useTransform(scrollYProgress, [0.3, 0.56], [1, 0.82]);
   const rawFrontRotateY = useTransform(scrollYProgress, [0.3, 0.56], [0, 180]);
   const rawBackRotateY = useTransform(scrollYProgress, [0.3, 0.56], [-180, 0]);
 
