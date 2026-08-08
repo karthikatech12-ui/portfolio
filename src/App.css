@@ -2,20 +2,13 @@
 
 /* ================================================================
    PREMIUM WHITE + RED PALETTE
-   Full white canvas throughout the site. Cormorant Garamond stays
-   as the editorial serif for section titles / body headings, but
-   the hero headline and the bio "Hey!" now use Satisfy — a genuine
-   handwritten script — in a deep premium red, with a "written by
-   hand" reveal animation on the bio heading.
    ================================================================ */
 :root {
-  /* -- background — flat, true white everywhere -- */
   --frost-1: #FFFFFF;
   --frost-2: #FFFFFF;
   --frost-3: #FFFFFF;
   --frost-4: #FFFFFF;
 
-  /* -- ink / text -- */
   --ink: #202C3C;
   --ink-soft: #3C4E63;
   --muted-on-light: rgba(32, 44, 60, 0.58);
@@ -24,12 +17,10 @@
   --cream: #FDFEFF;
   --ivory: #FFFFFF;
 
-  /* -- premium red accent (replaces the old champagne/gold) -- */
-  --champagne: #B3132E;        /* core premium red */
-  --champagne-light: #E0717C;  /* soft rose-red, for use on dark surfaces */
-  --champagne-deep: #7A0F22;   /* oxblood, for hover / deep emphasis */
+  --champagne: #B3132E;
+  --champagne-light: #E0717C;
+  --champagne-deep: #7A0F22;
 
-  /* -- glass surfaces — kept subtle since canvas is now pure white -- */
   --glass-light-bg: rgba(255, 255, 255, 0.6);
   --glass-light-bg-soft: rgba(255, 255, 255, 0.35);
   --glass-light-border: rgba(32, 44, 60, 0.08);
@@ -68,9 +59,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .page { overflow-x: clip; background: #FFFFFF; }
 
-/* ================================================================
-   NAV — premium, elegant redesign
-   ================================================================ */
+/* ---------- NAV ---------- */
 .nav-wrap {
   position: fixed;
   top: 22px; left: 0; right: 0;
@@ -182,7 +171,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .nav-burger span { width: 20px; height: 2px; background: var(--ink); display: block; border-radius: 2px; transition: background 0.2s ease; }
 .nav-burger:hover span { background: var(--champagne); }
 
-/* ---------- MARQUEE (light band, red accent) ---------- */
+/* ---------- MARQUEE ---------- */
 .marquee {
   background: #FFFFFF;
   color: var(--ink);
@@ -233,7 +222,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   color: var(--ink);
 }
 
-/* ---------- ABOUT (shared text styles) ---------- */
+/* ---------- ABOUT ---------- */
 .about-text {
   font-size: 18px;
   line-height: 1.7;
@@ -277,7 +266,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 .timeline-body h3 { font-family: var(--font-display); font-size: 23px; margin: 0 0 4px; font-weight: 600; color: var(--ink); }
 .timeline-body p { margin: 0; color: var(--muted-on-light); font-size: 15px; }
 
-/* ---------- EXPERIENCE (light frosted-glass card) ---------- */
+/* ---------- EXPERIENCE ---------- */
 .exp-card {
   background: var(--glass-light-bg);
   backdrop-filter: blur(24px) saturate(180%);
@@ -304,10 +293,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   color: var(--ink-soft);
 }
 
-/* ================================================================
-   PROJECTS — sticky stack mechanic UNCHANGED
-   ================================================================ */
-
+/* ---------- PROJECTS ---------- */
 .projects { padding: 0 0 6vh; background: #FFFFFF; }
 .projects .section-head { padding: 90px 6vw 0; margin-bottom: 40px; }
 
@@ -387,7 +373,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 .fg-light .project-tag { color: var(--champagne-light); }
 .fg-light .exp-tags span { border-color: var(--glass-dark-border); }
 
-/* ---------- SKILLS (text-focused premium motion) ---------- */
+/* ---------- SKILLS ---------- */
 .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
 
 .skill-group {
@@ -624,8 +610,14 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   overflow: hidden;
   height: 110vh;
   background: #FFFFFF;
-  --avatar-col: min(230px, 55vw);   /* was min(260px, 60vw) — slightly smaller so it fits under the heading with room to spare */
-  --bio-spacer: min(300px, 30vw);
+  /* Base card size increased (was 230px) so that once it scales down
+     to 0.82 in the bio section (see App.jsx rawScale), it still reads
+     as a proper-sized photo (~230px) next to the "Hey!" text instead
+     of looking small. */
+  --avatar-col: min(280px, 60vw);
+  /* Matched closer to the bio-scaled card size (280 * 0.82 ≈ 230px)
+     so the center grid column doesn't leave an oversized empty gap. */
+  --bio-spacer: min(260px, 30vw);
 }
 
 .majd-sticky-viewport {
@@ -662,13 +654,15 @@ section { padding: 110px 6vw; background: #FFFFFF; }
   filter: blur(70px);
 }
 
-/* Centered sticky avatar card — nudged down from dead-center so it
-   sits comfortably under the two-line hero heading instead of
-   overlapping it (desktop only; this block never renders on mobile
-   since the React component skips it there). */
+/* Centered sticky avatar card — anchored a bit above dead-center of
+   the sticky viewport so that: (a) in the hero it clears the two-line
+   heading above it, and (b) in the bio section — combined with the
+   card now moving slightly UP instead of further down as you scroll
+   (see App.jsx rawTranslateY) — it lands roughly level with the
+   vertical center of the "Hey!" text block instead of sitting low. */
 .majd-avatar-sticky-wrap {
   position: absolute;
-  top: 58%;                 /* was 50% — moved down to clear the heading */
+  top: 55%;                 /* was 58% */
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -773,8 +767,7 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 }
 
 /* Desktop only: lift the heading up so there's a clear gap between
-   it and the sticky avatar card below it (paired with the
-   .majd-avatar-sticky-wrap top:58% change above). */
+   it and the sticky avatar card below it. */
 @media (min-width: 769px) {
   .majd-hero-title-container {
     margin-top: -150px;
