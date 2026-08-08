@@ -976,12 +976,30 @@ section { padding: 110px 6vw; background: #FFFFFF; }
 }
 
 @media (max-width: 768px) {
+  /* Fully disable the desktop pin/parallax mechanism on mobile. That
+     mechanism relies on a fixed-height sticky viewport with
+     overflow:hidden and a scroll-driven translateY to reveal content —
+     it assumes the hero/bio sections have the tall, absolutely
+     positioned heights used on desktop. On mobile the sections switch
+     to normal auto-height stacked content instead, so the old fixed
+     130vh/320vh boxes clipped that content and left blank gaps. Now
+     everything just flows normally, top to bottom. */
   .majd-hero-bio-container {
-    height: 150vh;
+    height: auto;
+    overflow: visible;
+  }
+
+  .majd-sticky-viewport {
+    position: static;
+    height: auto;
+    overflow: visible;
   }
 
   .majd-content-scroll-flow {
-    height: 320vh;
+    position: static;
+    height: auto;
+    width: 100%;
+    transform: none !important;
   }
 
   .majd-hero-page,
