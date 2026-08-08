@@ -230,8 +230,12 @@ export function HeroBioSection() {
   const frontRotateY = useSpring(rawFrontRotateY, springConfig);
   const backRotateY = useSpring(rawBackRotateY, springConfig);
 
-  // Content Flow - adjusted for mobile to ensure bottom content isn't cut off
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0vh', isMobile ? '-130vh' : '-100vh']);
+  // Content Flow — desktop only. On mobile the hero/bio sections stack
+  // normally in document flow (see the mobile media query in the CSS),
+  // so no scroll-driven transform should be applied there; leaving it
+  // on was what caused the bio content to get clipped/overlapped by
+  // empty space on small screens.
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0vh', '-100vh']);
   
   // Mobile Hero Opacity (Front image fades as you leave top)
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
@@ -257,7 +261,7 @@ export function HeroBioSection() {
           </div>
         )}
 
-        <motion.div className="majd-content-scroll-flow" style={{ y: contentY }}>
+        <motion.div className="majd-content-scroll-flow" style={{ y: isMobile ? 0 : contentY }}>
           {/* HERO PAGE */}
           <section className="majd-hero-page">
             <div className="majd-hero-title-container">
