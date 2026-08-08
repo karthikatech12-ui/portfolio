@@ -278,7 +278,7 @@ export function HeroBioSection() {
                 <span className="majd-bio-eyebrow">/ ABOUT</span>
                 <h2 className="majd-bio-heading">Hey!</h2>
                 <p className="majd-bio-lead">
-                  I'm Karthika, a web developer based in Dindigul, Tamil Nadu — currently building
+                  I'm Karthika, a web developer based in Tamil Nadu,India — currently building
                   reliable, scalable web platforms on Laravel and CodeIgniter.
                 </p>
               </div>
@@ -365,11 +365,11 @@ export default function App() {
           <div className="exp-card">
             <div className="exp-top">
               <h3>Web Developer</h3>
-              <span className="exp-period">Blazing Coders · 1.5 years</span>
+              <span className="exp-period">1.5 years</span>
             </div>
             <p>
               Specialized in building and maintaining dynamic web applications with
-              Laravel and CodeIgniter. Wrote efficient, maintainable code, managed
+              high framework. Wrote efficient, maintainable code, managed
               database structures, troubleshot complex technical issues, and collaborated
               closely with the dev team to hit strict project deadlines.
             </p>
